@@ -74,6 +74,16 @@ Time Time::operator-(int numberOfMinutes) const
     return {newHour, newMinutes};
 }
 
+Time &Time::operator=(const Time &other)
+{
+    if (this != &other)
+    {
+        this->hour = other.hour;
+        this->minute = other.minute;
+    }
+    return *this;
+}
+
 bool operator==(const Time &lhTime, const Time &rhTime)
 {
     return lhTime.hour == rhTime.hour && lhTime.minute == rhTime.minute;

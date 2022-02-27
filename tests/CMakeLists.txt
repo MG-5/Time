@@ -12,6 +12,7 @@ add_executable(${PROJECT_NAME}
         main.cxx
         ConstructorTest.cxx
         AdditionTest.cxx
+        AssignOperator.cxx
         SubtractionTest.cxx
         DifferenceTest.cxx
         OutputOperator.cxx)

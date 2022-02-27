@@ -53,3 +53,11 @@ TEST(Constructor, constructor7)
 {
     EXPECT_DEATH(Time time("0123"), "");
 }
+
+TEST(Constructor, constructor8)
+{
+    Time time;
+
+    EXPECT_EQ(time.hour, 0);
+    EXPECT_EQ(time.minute, 0);
+}
