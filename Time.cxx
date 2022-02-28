@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iomanip>
 
+//--------------------------------------------------------------------------------------------------
 Time::Time(const std::string &timeAsString)
 {
     auto pos = timeAsString.find(':');
@@ -16,6 +17,7 @@ Time::Time(const std::string &timeAsString)
     *this = Time(hour, minute);
 }
 
+//--------------------------------------------------------------------------------------------------
 Time::Time(const uint8_t newHour, const uint8_t newMinute)
 {
     hour = newHour % 24;
@@ -28,21 +30,25 @@ Time::Time(const uint8_t newHour, const uint8_t newMinute)
     }
 }
 
+//--------------------------------------------------------------------------------------------------
 Time Time::operator+(Time &otherTime) const
 {
     return *this + otherTime.getMinutes();
 }
 
+//--------------------------------------------------------------------------------------------------
 Time Time::operator+(int numberOfMinutes) const
 {
     return *this - (-numberOfMinutes);
 }
 
+//--------------------------------------------------------------------------------------------------
 Time Time::operator-(Time &otherTime) const
 {
     return *this - otherTime.getMinutes();
 }
 
+//--------------------------------------------------------------------------------------------------
 Time Time::operator-(int numberOfMinutes) const
 {
     int tempHour = hour - (numberOfMinutes / 60);
@@ -74,6 +80,7 @@ Time Time::operator-(int numberOfMinutes) const
     return {newHour, newMinutes};
 }
 
+//--------------------------------------------------------------------------------------------------
 Time &Time::operator=(const Time &other)
 {
     if (this != &other)
@@ -84,16 +91,19 @@ Time &Time::operator=(const Time &other)
     return *this;
 }
 
+//--------------------------------------------------------------------------------------------------
 bool operator==(const Time &lhTime, const Time &rhTime)
 {
     return lhTime.hour == rhTime.hour && lhTime.minute == rhTime.minute;
 }
 
+//--------------------------------------------------------------------------------------------------
 [[nodiscard]] uint16_t Time::getMinutes() const
 {
     return minute + hour * 60;
 }
 
+//--------------------------------------------------------------------------------------------------
 uint16_t Time::getDifferenceInMinutes(const Time &time, const Time &otherTime)
 {
     assert(time.hour <= otherTime.hour);
@@ -102,6 +112,7 @@ uint16_t Time::getDifferenceInMinutes(const Time &time, const Time &otherTime)
     return (otherTime - time.getMinutes()).getMinutes();
 }
 
+//--------------------------------------------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const Time &time)
 {
     os << std::setfill('0') << std::setw(2) << int(time.hour);
