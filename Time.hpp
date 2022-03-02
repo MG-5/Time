@@ -21,6 +21,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Time &time);
     friend bool operator==(const Time &lhTime, const Time &rhTime);
+    friend bool operator<(const Time &lhTime, const Time &rhTime);
 
     [[nodiscard]] uint16_t getMinutes() const;
 

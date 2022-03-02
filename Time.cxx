@@ -98,6 +98,13 @@ bool operator==(const Time &lhTime, const Time &rhTime)
 }
 
 //--------------------------------------------------------------------------------------------------
+bool operator<(const Time &lhTime, const Time &rhTime)
+{
+    return lhTime.hour < rhTime.hour ||
+           (lhTime.hour == rhTime.hour) && lhTime.minute < rhTime.minute;
+}
+
+//--------------------------------------------------------------------------------------------------
 [[nodiscard]] uint16_t Time::getMinutes() const
 {
     return minute + hour * 60;
