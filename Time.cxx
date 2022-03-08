@@ -101,7 +101,7 @@ bool operator==(const Time &lhTime, const Time &rhTime)
 bool operator<(const Time &lhTime, const Time &rhTime)
 {
     return lhTime.hour < rhTime.hour ||
-           (lhTime.hour == rhTime.hour) && lhTime.minute < rhTime.minute;
+           (lhTime.hour == rhTime.hour && lhTime.minute < rhTime.minute);
 }
 
 //--------------------------------------------------------------------------------------------------
