@@ -60,16 +60,18 @@ TEST(Difference, difference4)
 
 TEST(Difference, difference5)
 {
-    Time time1("11:30");
-    Time time2("11:00");
+    Time time1("23:00");
+    Time time2("01:20");
 
-    EXPECT_DEATH(Time::getDifferenceInMinutes(time1, time2), "");
+    auto result = Time::getDifferenceInMinutes(time1, time2);
+    EXPECT_EQ(result, 2 * 60 + 20);
 }
 
 TEST(Difference, difference6)
 {
-    Time time1("11:30");
-    Time time2("10:30");
+    Time time1("11:40");
+    Time time2("11:30");
 
-    EXPECT_DEATH(Time::getDifferenceInMinutes(time1, time2), "");
+    auto result = Time::getDifferenceInMinutes(time1, time2);
+    EXPECT_EQ(result, 24 * 60 - 10);
 }

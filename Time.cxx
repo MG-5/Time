@@ -113,10 +113,12 @@ bool operator<(const Time &lhTime, const Time &rhTime)
 //--------------------------------------------------------------------------------------------------
 uint16_t Time::getDifferenceInMinutes(const Time &time, const Time &otherTime)
 {
-    assert(time.hour <= otherTime.hour);
-    assert(!(time.hour == otherTime.hour) || time.minute <= otherTime.minute);
+    if (time.hour <= otherTime.hour &&
+        (time.hour != otherTime.hour || time.minute <= otherTime.minute))
+        return (otherTime - time.getMinutes()).getMinutes();
 
-    return (otherTime - time.getMinutes()).getMinutes();
+    else
+        return (24 * 60) - time.getMinutes() + otherTime.getMinutes();
 }
 
 //--------------------------------------------------------------------------------------------------
