@@ -15,7 +15,8 @@ add_executable(${PROJECT_NAME}
         AssignOperator.cxx
         SubtractionTest.cxx
         DifferenceTest.cxx
-        OutputOperator.cxx)
+        OutputOperator.cxx
+        SmallerThanOperator.cxx)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
         ${GTEST_LDFLAGS}
