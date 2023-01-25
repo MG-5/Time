@@ -31,6 +31,13 @@ Time::Time(const uint8_t newHour, const uint8_t newMinute)
 }
 
 //--------------------------------------------------------------------------------------------------
+Time::Time(const Time &other)
+{
+    hour = other.hour;
+    minute = other.minute;
+}
+
+//--------------------------------------------------------------------------------------------------
 Time Time::operator+(Time &otherTime) const
 {
     return *this + otherTime.getMinutes();

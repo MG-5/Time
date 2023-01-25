@@ -7,8 +7,9 @@ class Time
 {
 public:
     Time() = default;
-    Time(const std::string &timeAsString);
+    explicit Time(const std::string &timeAsString);
     Time(uint8_t newHour, uint8_t newMinute);
+    Time(const Time &other);
     ~Time() = default;
 
     Time operator+(Time &otherTime) const;
