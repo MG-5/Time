@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <iostream>
 #include <string>
 
@@ -7,9 +8,8 @@ class Time
 {
 public:
     Time() = default;
-    explicit Time(const std::string &timeAsString);
-    Time(uint8_t newHour, uint8_t newMinute);
-    Time(const Time &other);
+    Time(const std::string &timeAsString);
+    Time(uint8_t newHour, uint8_t newMinute = 0, uint8_t newSecond = 0);
     ~Time() = default;
 
     Time operator+(Time &otherTime) const;
@@ -30,4 +30,5 @@ public:
 
     uint8_t hour = 0;
     uint8_t minute = 0;
+    uint8_t second = 0;
 };

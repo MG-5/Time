@@ -18,23 +18,24 @@ Time::Time(const std::string &timeAsString)
 }
 
 //--------------------------------------------------------------------------------------------------
-Time::Time(const uint8_t newHour, const uint8_t newMinute)
+Time::Time(const uint8_t newHour, const uint8_t newMinute, const uint8_t newSecond)
 {
-    hour = newHour % 24;
-    minute = newMinute;
+    second = newSecond;
+    if (second > 60)
+    {
+        minute = second / 60;
+        second %= 60;
+    }
 
+    minute += newMinute;
     if (minute > 59)
     {
         hour += minute / 60;
         minute %= 60;
     }
-}
 
-//--------------------------------------------------------------------------------------------------
-Time::Time(const Time &other)
-{
-    hour = other.hour;
-    minute = other.minute;
+    hour += newHour;
+    hour %= 24;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -134,5 +135,7 @@ std::ostream &operator<<(std::ostream &os, const Time &time)
     os << std::setfill('0') << std::setw(2) << int(time.hour);
     os << ':';
     os << std::setfill('0') << std::setw(2) << int(time.minute);
+    os << ':';
+    os << std::setfill('0') << std::setw(2) << int(time.second);
     return os;
 }
