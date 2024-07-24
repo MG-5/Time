@@ -25,6 +25,7 @@ public:
     friend bool operator<(const Time &lhTime, const Time &rhTime);
 
     [[nodiscard]] uint16_t getMinutes() const;
+    [[nodiscard]] uint32_t getSeconds() const;
 
     static uint16_t getDifferenceInMinutes(const Time &time, const Time &otherTime);
 

@@ -95,6 +95,7 @@ Time &Time::operator=(const Time &other)
     {
         this->hour = other.hour;
         this->minute = other.minute;
+        this->second = other.second;
     }
     return *this;
 }
@@ -102,20 +103,29 @@ Time &Time::operator=(const Time &other)
 //--------------------------------------------------------------------------------------------------
 bool operator==(const Time &lhTime, const Time &rhTime)
 {
-    return lhTime.hour == rhTime.hour && lhTime.minute == rhTime.minute;
+    return lhTime.hour == rhTime.hour && lhTime.minute == rhTime.minute &&
+           lhTime.second == rhTime.second;
 }
 
 //--------------------------------------------------------------------------------------------------
 bool operator<(const Time &lhTime, const Time &rhTime)
 {
     return lhTime.hour < rhTime.hour ||
-           (lhTime.hour == rhTime.hour && lhTime.minute < rhTime.minute);
+           (lhTime.hour == rhTime.hour &&
+            (lhTime.minute < rhTime.minute ||
+             (lhTime.minute == rhTime.minute && lhTime.second < rhTime.second)));
 }
 
 //--------------------------------------------------------------------------------------------------
-[[nodiscard]] uint16_t Time::getMinutes() const
+uint16_t Time::getMinutes() const
 {
     return minute + hour * 60;
+}
+
+//--------------------------------------------------------------------------------------------------
+uint32_t Time::getSeconds() const
+{
+    return second + getMinutes() * 60;
 }
 
 //--------------------------------------------------------------------------------------------------
