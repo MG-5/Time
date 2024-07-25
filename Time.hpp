@@ -10,6 +10,13 @@ public:
     Time() = default;
     Time(const std::string &timeAsString);
     Time(uint8_t newHour, uint8_t newMinute = 0, uint8_t newSecond = 0);
+    Time(const Time &other) // copy-constructor
+    {
+        this->hour = other.hour;
+        this->minute = other.minute;
+        this->second = other.second;
+    }
+
     ~Time() = default;
 
     Time operator+(Time &otherTime) const;
