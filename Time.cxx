@@ -18,74 +18,102 @@ Time::Time(const std::string &timeAsString)
 }
 
 //--------------------------------------------------------------------------------------------------
-Time::Time(const uint8_t newHour, const uint8_t newMinute, const uint8_t newSecond)
+Time::Time(const size_t newHour, const size_t newMinute, const size_t newSecond)
 {
-    second = newSecond;
-    if (second > 60)
+    second = newSecond % 60;
+    const auto TempMinutes = newMinute + newSecond / 60;
+    minute = TempMinutes % 60;
+    hour = (newHour + TempMinutes / 60) % 24;
+}
+
+//--------------------------------------------------------------------------------------------------
+Time Time::operator+(const Time &otherTime) const
+{
+    return Time(this->hour + otherTime.hour,     //
+                this->minute + otherTime.minute, //
+                this->second + otherTime.second);
+}
+
+//--------------------------------------------------------------------------------------------------
+Time Time::operator+(const size_t numberOfMinutes) const
+{
+    return Time(this->hour,                     //
+                this->minute + numberOfMinutes, //
+                this->second);
+}
+
+//--------------------------------------------------------------------------------------------------
+Time Time::operator-(const Time &otherTime) const
+{
+    return subtractHelper(otherTime.hour,   //
+                          otherTime.minute, //
+                          otherTime.second);
+}
+
+//--------------------------------------------------------------------------------------------------
+Time Time::operator-(const size_t numberOfMinutes) const
+{
+    return subtractHelper(0, numberOfMinutes, 0);
+}
+
+//--------------------------------------------------------------------------------------------------
+Time Time::subtractHelper(int diffHours, int diffMinutes, int diffSeconds) const
+{
+    diffMinutes += diffSeconds / 60;
+    diffSeconds %= 60;
+
+    uint8_t newSecond;
+    if (second < diffSeconds)
     {
-        minute = second / 60;
-        second %= 60;
-    }
-
-    minute += newMinute;
-    if (minute > 59)
-    {
-        hour += minute / 60;
-        minute %= 60;
-    }
-
-    hour += newHour;
-    hour %= 24;
-}
-
-//--------------------------------------------------------------------------------------------------
-Time Time::operator+(Time &otherTime) const
-{
-    return *this + otherTime.getMinutes();
-}
-
-//--------------------------------------------------------------------------------------------------
-Time Time::operator+(int numberOfMinutes) const
-{
-    return *this - (-numberOfMinutes);
-}
-
-//--------------------------------------------------------------------------------------------------
-Time Time::operator-(Time &otherTime) const
-{
-    return *this - otherTime.getMinutes();
-}
-
-//--------------------------------------------------------------------------------------------------
-Time Time::operator-(int numberOfMinutes) const
-{
-    int tempHour = hour - (numberOfMinutes / 60);
-    int tempMinutes = minute - numberOfMinutes % 60;
-
-    uint8_t newHour;
-    uint8_t newMinutes;
-
-    // this is needed due %-modulo operator doesn't calc negative numbers correctly in this case
-    if (tempMinutes < 0)
-    {
-        tempHour -= (tempMinutes / 60 + 1);
-        newMinutes = (60 + tempMinutes);
+        newSecond = 60 - (diffSeconds - second);
+        diffMinutes++;
     }
     else
+        newSecond = second - diffSeconds;
+
+    diffHours += diffMinutes / 60;
+    diffMinutes %= 60;
+    uint8_t newMinute;
+
+    if (minute < diffMinutes)
     {
-        tempHour += tempMinutes / 60;
-        newMinutes = tempMinutes;
+        newMinute = 60 - (diffMinutes - minute);
+        diffHours++;
     }
+    else
+        newMinute = minute - diffMinutes;
 
-    newHour = tempHour;
+    diffHours %= 24;
+    uint8_t newHour;
 
-    if (tempHour < 0)
-        newHour += 24;
+    if (hour < diffHours)
+        newHour = 24 - (diffHours - hour);
+    else
+        newHour = hour - diffHours;
 
-    newHour %= 24;
-    newMinutes %= 60;
+    return Time(newHour, newMinute, newSecond);
+}
 
-    return {newHour, newMinutes};
+//--------------------------------------------------------------------------------------------------
+void Time::addHours(const size_t numberOfHours)
+{
+    hour = (hour + numberOfHours) % 24;
+}
+
+//--------------------------------------------------------------------------------------------------
+void Time::addMinutes(const size_t numberOfMinutes)
+{
+    const auto HoursToAdd = (numberOfMinutes + minute) / 60;
+    addHours(HoursToAdd);
+    minute = (numberOfMinutes + minute) % 60;
+}
+
+//--------------------------------------------------------------------------------------------------
+void Time::addSeconds(const size_t numberOfSeconds)
+{
+    const auto MinutesToAdd = (numberOfSeconds + second) / 60;
+    addMinutes(MinutesToAdd);
+    second = (numberOfSeconds + second) % 60;
 }
 
 //--------------------------------------------------------------------------------------------------

@@ -1,6 +1,13 @@
 #include "../Time.hpp"
 #include <gtest/gtest.h>
 
+TEST(Difference, getSeconds1)
+{
+    Time time("11:30");
+
+    EXPECT_EQ(time.getSeconds(), (11 * 60) * 60 + 30 * 60);
+}
+
 TEST(Difference, getMinutes1)
 {
     Time time("11:30");

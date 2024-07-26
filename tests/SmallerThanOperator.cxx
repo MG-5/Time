@@ -56,3 +56,11 @@ TEST(SmallerThanOperator, smallerThan7)
 
     EXPECT_FALSE(time1 < time2);
 }
+
+TEST(SmallerThanOperator, smallerThan8)
+{
+    Time time1(11, 30, 20);
+    Time time2(11, 40, 10);
+
+    EXPECT_TRUE(time1 < time2);
+}
