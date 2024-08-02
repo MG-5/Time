@@ -22,6 +22,6 @@ if(BUILD_TESTING)
             tests/OutputOperator.cxx
             tests/SmallerThanOperator.cxx)
 
-    target_link_libraries(${PROJECT_NAME}_tests ${GTEST_LDFLAGS})
+    target_link_libraries(${PROJECT_NAME}_tests ${GTEST_BOTH_LIBRARIES})
     add_test(${PROJECT_NAME}_tests ${PROJECT_NAME}_tests)
 endif()
