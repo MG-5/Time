@@ -117,6 +117,18 @@ void Time::addSeconds(const size_t numberOfSeconds)
 }
 
 //--------------------------------------------------------------------------------------------------
+void Time::subHours(const size_t numberOfHours)
+{
+    *this = *this - numberOfHours * 60;
+}
+
+//--------------------------------------------------------------------------------------------------
+void Time::subMinutes(const size_t numberOfMinutes)
+{
+    *this = *this - numberOfMinutes;
+}
+
+//--------------------------------------------------------------------------------------------------
 Time &Time::operator=(const Time &other)
 {
     if (this != &other)

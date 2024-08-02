@@ -1,7 +1,7 @@
 #include "../Time.hpp"
 #include <gtest/gtest.h>
 
-TEST(Subtraction, subtraction1)
+TEST(Subtraction, operatorMinus1)
 {
     Time time("11:30");
 
@@ -11,7 +11,7 @@ TEST(Subtraction, subtraction1)
     EXPECT_EQ(result.minute, 05);
 }
 
-TEST(Subtraction, subtraction2)
+TEST(Subtraction, operatorMinus2)
 {
     Time time("11:30");
 
@@ -21,7 +21,7 @@ TEST(Subtraction, subtraction2)
     EXPECT_EQ(result.minute, 34);
 }
 
-TEST(Subtraction, subtraction3)
+TEST(Subtraction, operatorMinus3)
 {
     Time time("11:30");
 
@@ -31,7 +31,7 @@ TEST(Subtraction, subtraction3)
     EXPECT_EQ(result.minute, 55);
 }
 
-TEST(Subtraction, subtraction4)
+TEST(Subtraction, operatorMinus4)
 {
     Time time("00:15");
 
@@ -41,7 +41,7 @@ TEST(Subtraction, subtraction4)
     EXPECT_EQ(result.minute, 45);
 }
 
-TEST(Subtraction, subtraction5)
+TEST(Subtraction, operatorMinus5)
 {
     Time time("01:20");
 
@@ -51,7 +51,7 @@ TEST(Subtraction, subtraction5)
     EXPECT_EQ(result.minute, 45);
 }
 
-TEST(Subtraction, subtraction6)
+TEST(Subtraction, operatorMinus6)
 {
     Time time("01:30");
 
@@ -60,7 +60,7 @@ TEST(Subtraction, subtraction6)
     EXPECT_EQ(time, result);
 }
 
-TEST(Subtraction, subtraction7)
+TEST(Subtraction, operatorMinus7)
 {
     Time time("09:52");
     Time duration("8:30");
@@ -71,7 +71,7 @@ TEST(Subtraction, subtraction7)
     EXPECT_EQ(result.minute, 22);
 }
 
-TEST(Subtraction, subtraction8)
+TEST(Subtraction, operatorMinus8)
 {
     Time time("03:20");
     Time duration("01:58");
@@ -82,7 +82,7 @@ TEST(Subtraction, subtraction8)
     EXPECT_EQ(result.minute, 22);
 }
 
-TEST(Subtraction, subtraction9)
+TEST(Subtraction, operatorMinus9)
 {
     Time time("02:09");
     Time duration("02:22");
@@ -93,7 +93,7 @@ TEST(Subtraction, subtraction9)
     EXPECT_EQ(result.minute, 47);
 }
 
-TEST(Subtraction, subtraction10)
+TEST(Subtraction, operatorMinus10)
 {
     Time time("02:00");
     Time duration(0, 0, 50);
@@ -105,7 +105,7 @@ TEST(Subtraction, subtraction10)
     EXPECT_EQ(result.second, 10);
 }
 
-TEST(Subtraction, subtraction110)
+TEST(Subtraction, operatorMinus11)
 {
     Time time("00:07");
     Time duration(0, 0, 1200);
@@ -115,4 +115,70 @@ TEST(Subtraction, subtraction110)
     EXPECT_EQ(result.hour, 23);
     EXPECT_EQ(result.minute, 47);
     EXPECT_EQ(result.second, 0);
+}
+
+TEST(Subtraction, subHours1)
+{
+    Time time("00:07");
+
+    time.subHours(1);
+
+    EXPECT_EQ(time.hour, 23);
+    EXPECT_EQ(time.minute, 7);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Subtraction, subHours2)
+{
+    Time time("05:07");
+
+    time.subHours(3);
+
+    EXPECT_EQ(time.hour, 2);
+    EXPECT_EQ(time.minute, 7);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Subtraction, subHours3)
+{
+    Time time("05:07");
+
+    time.subHours(24);
+
+    EXPECT_EQ(time.hour, 5);
+    EXPECT_EQ(time.minute, 7);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Subtraction, subMinutes1)
+{
+    Time time("05:07");
+
+    time.subMinutes(6);
+
+    EXPECT_EQ(time.hour, 5);
+    EXPECT_EQ(time.minute, 1);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Subtraction, subMinutes2)
+{
+    Time time("05:07");
+
+    time.subMinutes(60);
+
+    EXPECT_EQ(time.hour, 4);
+    EXPECT_EQ(time.minute, 7);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Subtraction, subMinutes3)
+{
+    Time time("05:07");
+
+    time.subMinutes(1560);
+
+    EXPECT_EQ(time.hour, 3);
+    EXPECT_EQ(time.minute, 7);
+    EXPECT_EQ(time.second, 0);
 }
