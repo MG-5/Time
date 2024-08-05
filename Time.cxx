@@ -1,5 +1,6 @@
 #include "Time.hpp"
 
+#include <algorithm>
 #include <cassert>
 #include <cmath>
 #include <iomanip>
@@ -7,14 +8,37 @@
 //--------------------------------------------------------------------------------------------------
 Time::Time(const std::string &timeAsString)
 {
-    auto pos = timeAsString.find(':');
+    if (timeAsString.find_first_not_of("0123456789:") != std::string::npos)
+        return;
 
-    assert(pos != std::string::npos);
+    // count the number of colons in the string
+    const auto NumberOfColons = std::count(timeAsString.begin(), timeAsString.end(), ':');
 
-    hour = std::stoi(timeAsString.substr(0, pos));
-    minute = std::stoi(timeAsString.substr(pos + 1));
+    switch (NumberOfColons)
+    {
+        case 1: // hh:mm
+        {
+            auto pos = timeAsString.find(':');
+            auto tempHour = std::stoi(timeAsString.substr(0, pos));
+            auto tempMinute = std::stoi(timeAsString.substr(pos + 1));
+            *this = Time(tempHour, tempMinute);
+        }
+        break;
 
-    *this = Time(hour, minute);
+        case 2: // hh:mm:ss
+        {
+            auto pos = timeAsString.find(':');
+            auto tempHour = std::stoi(timeAsString.substr(0, pos));
+            auto pos2 = timeAsString.find(':', pos + 1);
+            auto tempMinute = std::stoi(timeAsString.substr(pos + 1, pos2 - pos - 1));
+            auto tempSecond = std::stoi(timeAsString.substr(pos2 + 1));
+            *this = Time(tempHour, tempMinute, tempSecond);
+        }
+        break;
+
+        default:
+            break;
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
