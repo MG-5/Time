@@ -28,10 +28,10 @@ Time::Time(const std::string &timeAsString)
         case 2: // hh:mm:ss
         {
             auto pos = timeAsString.find(':');
-            auto tempHour = std::stoi(timeAsString.substr(0, pos));
+            auto tempHour = atoi(timeAsString.substr(0, pos).c_str());
             auto pos2 = timeAsString.find(':', pos + 1);
-            auto tempMinute = std::stoi(timeAsString.substr(pos + 1, pos2 - pos - 1));
-            auto tempSecond = std::stoi(timeAsString.substr(pos2 + 1));
+            auto tempMinute = atoi(timeAsString.substr(pos + 1, pos2 - pos - 1).c_str());
+            auto tempSecond = atoi(timeAsString.substr(pos2 + 1).c_str());
             *this = Time(tempHour, tempMinute, tempSecond);
         }
         break;
