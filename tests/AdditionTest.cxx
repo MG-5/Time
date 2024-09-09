@@ -234,3 +234,15 @@ TEST(Addition, addSeconds3)
     EXPECT_EQ(time.minute, 7);
     EXPECT_EQ(time.second, 0);
 }
+
+TEST(Addition, addSeconds4)
+{
+    Time time("23:47:59");
+    EXPECT_EQ(time.second, 59);
+
+    time.addSeconds(1);
+
+    EXPECT_EQ(time.hour, 23);
+    EXPECT_EQ(time.minute, 48);
+    EXPECT_EQ(time.second, 0);
+}
