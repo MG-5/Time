@@ -33,6 +33,7 @@ public:
 
     void subHours(const size_t numberOfHours);
     void subMinutes(const size_t numberOfMinutes);
+    void subSeconds(const size_t numberOfSeconds);
 
     friend std::ostream &operator<<(std::ostream &os, const Time &time);
     friend bool operator==(const Time &lhTime, const Time &rhTime);

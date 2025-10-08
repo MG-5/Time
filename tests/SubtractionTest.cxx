@@ -150,6 +150,17 @@ TEST(Subtraction, subHours3)
     EXPECT_EQ(time.second, 0);
 }
 
+TEST(Subtraction, subHours4)
+{
+    Time time("05:07");
+
+    time.subHours(27);
+
+    EXPECT_EQ(time.hour, 2);
+    EXPECT_EQ(time.minute, 7);
+    EXPECT_EQ(time.second, 0);
+}
+
 TEST(Subtraction, subMinutes1)
 {
     Time time("05:07");
@@ -179,6 +190,61 @@ TEST(Subtraction, subMinutes3)
     time.subMinutes(1560);
 
     EXPECT_EQ(time.hour, 3);
+    EXPECT_EQ(time.minute, 7);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Subtraction, subMinutes4)
+{
+    Time time("05:07");
+
+    time.subMinutes(360);
+
+    EXPECT_EQ(time.hour, 23);
+    EXPECT_EQ(time.minute, 7);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Subtraction, subSeconds1)
+{
+    Time time("05:07");
+
+    time.subSeconds(6);
+
+    EXPECT_EQ(time.hour, 5);
+    EXPECT_EQ(time.minute, 6);
+    EXPECT_EQ(time.second, 54);
+}
+
+TEST(Subtraction, subSeconds2)
+{
+    Time time("05:07");
+
+    time.subSeconds(60);
+
+    EXPECT_EQ(time.hour, 5);
+    EXPECT_EQ(time.minute, 6);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Subtraction, subSeconds3)
+{
+    Time time("05:07");
+
+    time.subSeconds(3600);
+
+    EXPECT_EQ(time.hour, 4);
+    EXPECT_EQ(time.minute, 7);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Subtraction, subSeconds4)
+{
+    Time time("05:07");
+
+    time.subSeconds(18000);
+
+    EXPECT_EQ(time.hour, 0);
     EXPECT_EQ(time.minute, 7);
     EXPECT_EQ(time.second, 0);
 }

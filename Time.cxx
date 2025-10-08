@@ -16,6 +16,12 @@ Time::Time(const std::string &timeAsString)
 
     switch (NumberOfColons)
     {
+        case 0: // only seconds
+        {
+            auto tempSecond = std::stoi(timeAsString);
+            *this = Time(0, 0, tempSecond);
+        }
+        break;
         case 1: // hh:mm
         {
             auto pos = timeAsString.find(':');
@@ -143,13 +149,19 @@ void Time::addSeconds(const size_t numberOfSeconds)
 //--------------------------------------------------------------------------------------------------
 void Time::subHours(const size_t numberOfHours)
 {
-    *this = *this - numberOfHours * 60;
+    *this = subtractHelper(numberOfHours, 0, 0);
 }
 
 //--------------------------------------------------------------------------------------------------
 void Time::subMinutes(const size_t numberOfMinutes)
 {
-    *this = *this - numberOfMinutes;
+    *this = subtractHelper(0, numberOfMinutes, 0);
+}
+
+//--------------------------------------------------------------------------------------------------
+void Time::subSeconds(const size_t numberOfSeconds)
+{
+    *this = subtractHelper(0, 0, numberOfSeconds);
 }
 
 //--------------------------------------------------------------------------------------------------

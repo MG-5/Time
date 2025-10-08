@@ -46,14 +46,6 @@ TEST(TimeConstructor, invalidFormat)
 
 TEST(TimeConstructor, invalidFormat2)
 {
-    Time time("1130");
-    EXPECT_EQ(time.hour, 0);
-    EXPECT_EQ(time.minute, 0);
-    EXPECT_EQ(time.second, 0);
-}
-
-TEST(TimeConstructor, invalidFormat3)
-{
     Time time("ab:cd");
     EXPECT_EQ(time.hour, 0);
     EXPECT_EQ(time.minute, 0);
@@ -121,4 +113,49 @@ TEST(Constructor, constructor11)
     EXPECT_EQ(time.hour, 4);
     EXPECT_EQ(time.minute, 27);
     EXPECT_EQ(time.second, 05);
+}
+
+TEST(Constructor, constructorOnlySeconds1)
+{
+    Time time("1130");
+
+    EXPECT_EQ(time.hour, 0);
+    EXPECT_EQ(time.minute, 18);
+    EXPECT_EQ(time.second, 50);
+}
+
+TEST(Constructor, constructorOnlySeconds2)
+{
+    Time time("0");
+
+    EXPECT_EQ(time.hour, 0);
+    EXPECT_EQ(time.minute, 0);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Constructor, constructorOnlySeconds3)
+{
+    Time time("10");
+
+    EXPECT_EQ(time.hour, 0);
+    EXPECT_EQ(time.minute, 0);
+    EXPECT_EQ(time.second, 10);
+}
+
+TEST(Constructor, constructorOnlySeconds4)
+{
+    Time time("60");
+
+    EXPECT_EQ(time.hour, 0);
+    EXPECT_EQ(time.minute, 1);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(Constructor, constructorOnlySeconds5)
+{
+    Time time("75");
+
+    EXPECT_EQ(time.hour, 0);
+    EXPECT_EQ(time.minute, 1);
+    EXPECT_EQ(time.second, 15);
 }
