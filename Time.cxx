@@ -18,15 +18,15 @@ Time::Time(const std::string &timeAsString)
     {
         case 0: // only seconds
         {
-            auto tempSecond = std::stoi(timeAsString);
+            auto tempSecond = atoi(timeAsString.c_str());
             *this = Time(0, 0, tempSecond);
         }
         break;
         case 1: // hh:mm
         {
             auto pos = timeAsString.find(':');
-            auto tempHour = std::stoi(timeAsString.substr(0, pos));
-            auto tempMinute = std::stoi(timeAsString.substr(pos + 1));
+            auto tempHour = atoi(timeAsString.substr(0, pos).c_str());
+            auto tempMinute = atoi(timeAsString.substr(pos + 1).c_str());
             *this = Time(tempHour, tempMinute);
         }
         break;
