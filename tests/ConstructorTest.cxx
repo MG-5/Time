@@ -52,6 +52,29 @@ TEST(TimeConstructor, invalidFormat2)
     EXPECT_EQ(time.second, 0);
 }
 
+TEST(TimeConstructor, invalidFormat3)
+{
+    Time time(":");
+    EXPECT_EQ(time.hour, 0);
+    EXPECT_EQ(time.minute, 0);
+    EXPECT_EQ(time.second, 0);
+}
+
+TEST(TimeConstructor, invalidFormat4)
+{
+    Time time(":5:");
+    EXPECT_EQ(time.hour, 0);
+    EXPECT_EQ(time.minute, 5);
+    EXPECT_EQ(time.second, 0);
+}
+TEST(TimeConstructor, invalidFormat5)
+{
+    Time time("::");
+    EXPECT_EQ(time.hour, 0);
+    EXPECT_EQ(time.minute, 0);
+    EXPECT_EQ(time.second, 0);
+}
+
 TEST(Constructor, constructor5)
 {
     Time time(11, 30);
@@ -158,4 +181,13 @@ TEST(Constructor, constructorOnlySeconds5)
     EXPECT_EQ(time.hour, 0);
     EXPECT_EQ(time.minute, 1);
     EXPECT_EQ(time.second, 15);
+}
+
+TEST(Constructor, constructorOnlySeconds6)
+{
+    Time time("90");
+
+    EXPECT_EQ(time.hour, 0);
+    EXPECT_EQ(time.minute, 1);
+    EXPECT_EQ(time.second, 30);
 }
